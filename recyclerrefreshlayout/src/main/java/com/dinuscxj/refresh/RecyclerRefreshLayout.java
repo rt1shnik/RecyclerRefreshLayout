@@ -1194,6 +1194,13 @@ public class RecyclerRefreshLayout extends ViewGroup
             int childCount = ((ViewGroup) mTarget).getChildCount();
             for (int i = 0; i < childCount; i++) {
                 View child = ((ViewGroup) mTarget).getChildAt(i);
+                if (child instanceof ISwipeRefreshView) {
+                    if (((ISwipeRefreshView) child).allowSwipeToRefresh()) {
+                        continue;
+                    } else {
+                        return true;
+                    }
+                }
                 if (canChildScrollUp(child)) {
                     return true;
                 }
