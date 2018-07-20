@@ -710,6 +710,20 @@ public class RecyclerRefreshLayout extends ViewGroup
             case FLOAT:
                 if (!isEnabled() || canChildScrollUp(mTarget)
                         || mIsRefreshing || mNestedScrollInProgress) {
+
+                    // Sometimes [ISwipeRefreshView] uses onTouchEvent to know if scroll available
+                    // But this method is called before child's onTouchEvent so [canChildScrollUp]
+                    // can return wrong value here. It leads to setting wrong [mInitialDownY].
+                    // So we update [mInitialDownY] every time scroll available.
+                    // Next time when scroll will be unavailable we will use fresh [mInitialDownY]
+                    int pointerId = ev.getPointerId(0);
+                    if (pointerId == mActivePointerId) {
+                        float initialDownY = getMotionEventY(ev, mActivePointerId);
+                        if (initialDownY != -1) {
+                            mInitialDownY = initialDownY;
+                        }
+
+                    }
                     // Fail fast if we're not in a state where a swipe is possible
                     return false;
                 }
