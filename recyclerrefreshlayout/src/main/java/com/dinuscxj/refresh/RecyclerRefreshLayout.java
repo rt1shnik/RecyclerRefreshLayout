@@ -222,7 +222,7 @@ public class RecyclerRefreshLayout extends ViewGroup
         mCurrentTouchOffsetY = 0.0f;
 
         mRefreshStatus.reset();
-        mRefreshView.setVisibility(View.GONE);
+//        mRefreshView.setVisibility(View.GONE);
 
         mIsRefreshing = false;
         mIsAnimatingToStart = false;
@@ -1160,7 +1160,7 @@ public class RecyclerRefreshLayout extends ViewGroup
         }
 
         if (mRefreshView.getVisibility() != View.VISIBLE) {
-            mRefreshView.setVisibility(View.VISIBLE);
+//            mRefreshView.setVisibility(View.VISIBLE);
         }
 
         invalidate();
